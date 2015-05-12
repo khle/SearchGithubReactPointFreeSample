@@ -1,11 +1,11 @@
 {
-  "name": "react-bootstrap-starter",
-  "version": "1.0.4",
-  "author": "John Gleason <jogleasonjr@gmail.com>",
-  "description": "Sample project that uses react-bootstrap with reactify, browserify, and browser-sync.",
+  "name": "search-github",
+  "version": "1.0.0",
+  "author": "Kevin Le",
+  "description": "Sample React application built using RamdaJS and pointfree style",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jogleasonjr/react-bootstrap-starter.git"
+    "url": "https://github.com/khle/SearchGithubReactPointFreeSample.git"
   },
   "browserify": {
     "transform": [
