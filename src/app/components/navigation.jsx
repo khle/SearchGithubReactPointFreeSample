@@ -8,8 +8,7 @@ var DropdownButton = Bootstrap.DropdownButton;
 var MenuItem = Bootstrap.MenuItem;
 
 var Navigation = React.createClass({
-
-    render: function() {
+    render() {
         return (
             <Navbar className="navbar navbar-inverse navbar-fixed-top">
                 <a className="navbar-brand" href="#">{this.props.projectName}</a>

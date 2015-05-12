@@ -8,7 +8,8 @@ module.exports = {
         },
         files: [
             dest + '/**'
-        ]
+        ],
+        port: 8080
     },
     less: {
         src: src + '/less/main.less',
