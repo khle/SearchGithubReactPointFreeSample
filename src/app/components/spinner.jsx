@@ -1,8 +1,7 @@
 var React = require('react')
 
 var Spinner = React.createClass({
-    render() {
-    console.log('====+> ', this.props)
+    render() {    
         return (
             <div className="container">                
                 <div className="row center-align">

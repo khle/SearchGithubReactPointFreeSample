@@ -61,7 +61,7 @@ var Main = React.createClass({
             return <div className="container">
                 
                 <div className="row">
-                    <div className="input-field col s12">
+                    <div className="input-field col s12 m8 offset-m2">
                         <input placeholder="Github username" id="search-text" type="text" className="validate" value={context.state.userName} onChange={onChangeHandler} ref="searchText" />
                         <label className="active" for="search-label">Search Github user</label>
                     </div>

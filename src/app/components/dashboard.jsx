@@ -44,7 +44,21 @@ var Dashboard = React.createClass({
         var context = this
         
         var displayError = error => { context.setState({error, isLoading: false, id: this.props.data }) }        
-        var displayData = data => { context.setState({error: null, isLoading: false, avatar: L.avatar_url.get(data), id: L.id.get(data)}) }
+        var displayData = data => { context.setState({
+            error: null, 
+            isLoading: false, 
+            avatar: L.avatar_url.get(data), 
+            id: L.id.get(data),
+            name: L.name.get(data),
+            login: L.login.get(data),
+            company: L.company.get(data),
+            location: L.location.get(data),
+            followers: L.followers.get(data),
+            following: L.following.get(data),
+            email: L.email.get(data),
+            bio: L.bio.get(data),
+            public_repos: L.public_repos.get(data)
+        })}
         
         getGithub(githubUrl).fork(displayError, displayData)
     },
