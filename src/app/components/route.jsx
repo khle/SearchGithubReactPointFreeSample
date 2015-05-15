@@ -1,7 +1,8 @@
 var React = require('react'),
     RouterMixin = require('react-mini-router').RouterMixin,
     Main = require('./main.jsx'),
-    Dashboard = require('./dashboard.jsx')
+    Dashboard = require('./dashboard.jsx'),
+    Repos = require('./repos.jsx')
 
 var Route = React.createClass({
 
@@ -10,7 +11,8 @@ var Route = React.createClass({
     routes: {
         '/': 'home'        
         ,'notfound/:userName': 'notfound'
-        ,'dashboard/:userName': 'dashboard'        
+        ,'dashboard/:userName': 'dashboard'
+        ,'repos/:userName': 'repos'
         
         //'/dashboard': 'dashboard', //not working
         //'dashboard': 'dashboard', //correct
@@ -30,6 +32,10 @@ var Route = React.createClass({
 
     dashboard: function(userName) {
         return <Dashboard data = { userName }/>
+    },
+    
+    repos: function(userName) {
+        return <Repos data = { userName }/>
     },
 
     notFound: function(path) {

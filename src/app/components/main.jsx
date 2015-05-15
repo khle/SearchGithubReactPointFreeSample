@@ -1,12 +1,5 @@
 var React = require('react')
 var Navigate = require('react-mini-router').navigate
-var Bootstrap = require('react-bootstrap')
-
-var Navigation = require('./navigation.jsx')
-
-var Future = require('data.future')
-var Promise = require('promise') 
-var request = Promise.denodeify(require('then-request'))
 var R = require('ramda') 
 
 var My = require('../utils/myfunctors')

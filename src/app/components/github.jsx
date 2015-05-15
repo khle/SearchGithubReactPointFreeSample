@@ -2,10 +2,17 @@ var React = require('react')
 var Navigate = require('react-mini-router').navigate
 var My = require('../utils/myfunctors')
 
+var Repos = require('./repos.jsx')
+var Navigate = require('react-mini-router').navigate
+
 var Github = React.createClass({
     render() {        
         return ((context, props, state) => {
-                        
+            var onReposClick = ((event) => {                 
+                var userName = this.props.data.githubData.login                 
+                if (userName.length > 0) Navigate(`/repos/${userName}`)
+            }).bind(context)
+            
             var renderGithubData = githubData => {                
                 return (
                     <div className="container">                
@@ -18,7 +25,7 @@ var Github = React.createClass({
                                     </div>
                                     <div className="card-content">
                                         { githubData.login }
-                                        <p><a href="#!">{ githubData.public_repos  } Repos</a></p>
+                                        <p><a style={{cursor:'pointer'}} onClick={onReposClick}>{ githubData.public_repos  } Repos</a></p>
                                     </div>
                                 </div>                
                             </div>

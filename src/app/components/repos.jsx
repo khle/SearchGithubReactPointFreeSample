@@ -3,18 +3,20 @@ var React = require('react')
 var Main = require('./main.jsx')
 var Spinner = require('./spinner.jsx')
 var Github = require('./github.jsx')
+var ReposList = require('./reposList.jsx')
 
 var Future = require('data.future')
-var R = require('ramda')
+var R = require('ramda') 
+var request = require('request')
 
 var My = require('../utils/myfunctors')
 var GHConst = require('../utils/constants')
 
-var Dashboard = React.createClass({
+var Repos = React.createClass({
     getInitialState() {
         return {isLoading: true}    
     },
-    componentDidMount() {                        
+    componentDidMount() {        
         var _My = new My()
         var L = _My.MakeLenses(GHConst.githubApiFields)
                 
@@ -30,41 +32,30 @@ var Dashboard = React.createClass({
             })
         }        
         
-        var githubUrl = R.concat(GHConst.baseUrl, this.props.data)        
+        var githubUrl = `https://api.github.com/users/${this.props.data}/repos` 
+        
         
         var context = this
         
         var displayError = error => { context.setState({error, isLoading: false, id: this.props.data }) }        
         var displayData = data => { context.setState({
             error: null, 
-            isLoading: false, 
-            avatar: L.avatar_url.get(data), 
-            id: L.id.get(data),
-            name: L.name.get(data),
-            login: L.login.get(data),
-            company: L.company.get(data),
-            location: L.location.get(data),
-            followers: L.followers.get(data),
-            following: L.following.get(data),
-            email: L.email.get(data),
-            bio: L.bio.get(data),
-            public_repos: L.public_repos.get(data)
+            isLoading: false,            
+            data
         })}
         
         getGithub(githubUrl).fork(displayError, displayData)
     },
-    
     render() {
-                
-        return ((context, props, state) => {
+        return ((context, props, state) => {                        
             var _My = new My()
             var L = _My.MakeLenses(['isLoading'])
                                 
-            var show = R.ifElse(L.isLoading, s => <Spinner />, s => <Github data={{githubData: s}} />)
+            var show = R.ifElse(L.isLoading, s => <Spinner />, s => <ReposList data = { s.data }/>)
             return show(state)                                    
             
-        })(this, this.props, this.state)          
+        })(this, this.props, this.state)
     }
 })
 
-module.exports = Dashboard
+module.exports = Repos
