@@ -31,15 +31,7 @@ var Dashboard = React.createClass({
             })
         }        
         
-        var githubUrl = R.concat(GHConst.baseUrl, this.props.data)
-        /*
-        var logToConsole = data => { console.log(data); return data }
-        var buildHtmlUrl = data => { console.log(typeof(data)); console.log(typeof(`#!/dashboard/${data}`)); return `#!/dashboard/${data}` }
-        var logKeys = R.compose(_My.Fmap(logToConsole), R.keys)
-        var logValues = R.compose(_My.Fmap(logToConsole), R.values)
-        var logs = R.compose(logToConsole, L.html_url.map(logToConsole), L.url.map(logToConsole))
-        var htmlUrl = L.id.map(buildHtmlUrl)
-        */
+        var githubUrl = R.concat(GHConst.baseUrl, this.props.data)        
         
         var context = this
         
@@ -69,7 +61,7 @@ var Dashboard = React.createClass({
             var _My = new My()
             var L = _My.MakeLenses(['isLoading'])
                                 
-            var show = R.ifElse(L.isLoading, s => <Spinner data={{state}} />, s => <Github data={{state}} />)
+            var show = R.ifElse(L.isLoading, state => <Spinner />, s => <Github data={{githubData: state}} />)
             return show(state)                                    
             
         })(this, this.props, this.state)          
