@@ -24,10 +24,11 @@ var Main = React.createClass({
         })
     },
 
+    /*
     handleSearchClick(event) {        
         var userName = this.refs.searchText.getDOMNode().value 
         if (userName.length > 0) Navigate(`/dashboard/${userName}`)                
-    },
+    },*/
     
     handleCancelSearchClick(event) {
         this.setState({
@@ -42,8 +43,21 @@ var Main = React.createClass({
             var onChangeHandler = context.handleChange
             //var onSearchClick = context.handleSearchClick
             var onSearchClick = ((event) => { 
-                var userName = this.refs.searchText.getDOMNode().value 
-                if (userName.length > 0) Navigate(`/dashboard/${userName}`)
+                
+                //Impure
+                var noop = element => { return (() => { element.value = ''; element.focus() }) }
+                var showResult = element => { return (() => Navigate(`/dashboard/${element.value}`)) }
+                var element = this.refs.searchText.getDOMNode()
+                                                                                                
+                //Pure
+                var getInput = element => element.value
+                var isInputEmpty = R.eq('')
+                var checkInput = R.compose(isInputEmpty, R.trim, getInput)
+                var handler = R.ifElse(checkInput, noop, showResult)
+                                
+                                
+                handler(element)()
+                
             }).bind(context)
             
             var onCancelSearchClick = context.handleCancelSearchClick
