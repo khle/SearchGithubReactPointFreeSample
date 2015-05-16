@@ -10,38 +10,14 @@ var Main = React.createClass({
 
     getInitialState() {
 		return {
-			username: '',
-            isSearching: false
+			username: ''
 		}
-	},
-
-    handleChange(event) {
-        var userName = event.target.value
-        
-        this.setState({
-            userName,
-            isSearching: false
-        })
-    },
-
-    /*
-    handleSearchClick(event) {        
-        var userName = this.refs.searchText.getDOMNode().value 
-        if (userName.length > 0) Navigate(`/dashboard/${userName}`)                
-    },*/
-    
-    handleCancelSearchClick(event) {
-        this.setState({
-            userName: '',
-            isSearching: false
-        })    
-    },
+	},    
 
     render() {
         
         return ((context, props, state) => {         
-            var onChangeHandler = context.handleChange
-            //var onSearchClick = context.handleSearchClick
+            
             var onSearchClick = ((event) => { 
                 
                 //Impure
@@ -58,9 +34,11 @@ var Main = React.createClass({
                                 
                 handler(element)()
                 
-            }).bind(context)
+            }).bind(context)  
             
-            var onCancelSearchClick = context.handleCancelSearchClick
+            var onKeyPressHandler = ((event) => {
+                
+            })
                                 
             var displayUserName = R.ifElse(R.eq(null), x => '', R.identity)
             var displayError = R.ifElse(R.eq(null), x => '', x => ' user not found.')
@@ -69,7 +47,7 @@ var Main = React.createClass({
                 
                 <div className="row">
                     <div className="input-field col s12 m8 offset-m2">
-                        <input placeholder="Github username" id="search-text" type="text" className="validate" value={context.state.userName} onChange={onChangeHandler} ref="searchText" />
+                        <input placeholder="Github username" id="search-text" type="text" className="validate" value={context.state.userName} onChange={onKeyPressHandler} ref="searchText" />
                         <label className="active" for="search-label">Search Github user</label>
                     </div>
                 </div>
