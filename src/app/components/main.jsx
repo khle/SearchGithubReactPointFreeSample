@@ -54,8 +54,10 @@ var Main = React.createClass({
                 var checkEnterKeyPressed = R.compose(isEnterPressed, getKeyPressed)                
                 var handleKeyPressed = R.ifElse(checkEnterKeyPressed, handleEnterKeyPressed, handleNonEnterKeyPressed)
                 
+                var handleEvent = handleKeyPressed(event)
+                handleEvent(element.value)
                 
-                handleKeyPressed(event)(element.value)                
+                //handleKeyPressed(event)(element.value)                
                 
             }).bind(context)
                                 
