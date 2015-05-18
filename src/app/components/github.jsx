@@ -9,8 +9,21 @@ var Github = React.createClass({
     render() {        
         return ((context, props, state) => {
             var onReposClick = ((event) => {                 
-                var userName = this.props.data.githubData.login                 
-                if (userName.length > 0) Navigate(`/repos/${userName}`)
+                                
+                //Impure
+                var githubData = this.props.data.githubData                
+                var doNotShowAnything = ghd => { return }                
+                var showResult = ghd => { Navigate(`/repos/${ghd.login}`) }
+                                                                                                
+                //Pure
+                var getInput = ghd => ghd.login
+                var isInputEmpty = R.eq('')
+                var checkInput = R.compose(isInputEmpty, R.trim, getInput)
+                var handleClick = R.ifElse(checkInput, doNotShowAnything, showResult)
+                      
+                                                
+                handleClick(githubData)
+                
             }).bind(context)
             
             var renderGithubData = githubData => {                
