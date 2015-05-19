@@ -7,22 +7,15 @@ var GHConst = require('../utils/constants')
 var ErrorConst = require('../utils/errors')
 
 var Main = React.createClass({
-
-    getInitialState() {
-		return {
-			username: ''
-		}
-	},    
-
+    
     render() {
         
         return ((context, props, state) => {         
             
             var onSearchClick = ((event) => { 
                 
-                //Impure
-                var element = this.refs.searchText.getDOMNode()                
-                var focusElement = element => { element.value = ''; element.focus() }                
+                //Impure                
+                var focusElement = element => { element.value = ''; element.focus() }
                 var showResult = element => { Navigate(`/dashboard/${element.value}`) }
                                                                                                 
                 //Pure
@@ -31,7 +24,8 @@ var Main = React.createClass({
                 var checkInput = R.compose(isInputEmpty, R.trim, getInput)
                 var handleClick = R.ifElse(checkInput, focusElement, showResult)
                       
-                                                
+                //Kick things off
+                var element = this.refs.searchText.getDOMNode()                                                
                 handleClick(element)
                 
             }).bind(context)  
@@ -39,22 +33,23 @@ var Main = React.createClass({
             var onKeyDownHandler = ((event) => {
                 
                 //Impure
-                var element = this.refs.searchText.getDOMNode()
+                var focusElement = ((value) => { this.refs.searchText.getDOMNode().value = '' }).bind(this)
                 var showResult = value => { Navigate(`/dashboard/${value}`) }                                
                 
-                //Pure
-                var doNotShowAnything = val => { return }
+                //Pure                
                 var isInputEmpty = R.eq('')
                 var checkInput = R.compose(isInputEmpty, R.trim)
-                var search = R.ifElse(checkInput, doNotShowAnything, showResult)                
+                var search = R.ifElse(checkInput, focusElement, showResult)                
                 var getKeyPressed = event => event.keyCode
                 var handleNonEnterKeyPressed = evt => val => { return }
                 var handleEnterKeyPressed = evt => val => { search(val) } //impure
                 var isEnterPressed = R.eq(13)
                 var checkEnterKeyPressed = R.compose(isEnterPressed, getKeyPressed)                
-                var handleKeyPressed = R.ifElse(checkEnterKeyPressed, handleEnterKeyPressed, handleNonEnterKeyPressed)
-                
+                var handleKeyPressed = R.ifElse(checkEnterKeyPressed, handleEnterKeyPressed, handleNonEnterKeyPressed)                
                 var handleEvent = handleKeyPressed(event)
+                
+                //Kick things off
+                var element = this.refs.searchText.getDOMNode()
                 handleEvent(element.value)
                 
                 //handleKeyPressed(event)(element.value)                
@@ -68,13 +63,13 @@ var Main = React.createClass({
                 
                 <div className="row">
                     <div className="input-field col s12 m8 offset-m2">
-                        <input placeholder="Github username" id="search-text" type="text" className="validate" value={context.state.userName} onKeyDown={onKeyDownHandler} ref="searchText" />
+                        <input placeholder="Github username" id="search-text" type="text" className="validate" onKeyDown={onKeyDownHandler} ref="searchText" />
                         <label className="active" for="search-label">Search Github user</label>
                     </div>
                 </div>
             
                 <div className="row center-align">
-                    {displayUserName(context.props.data)} {displayError(context.props.data)}
+                    {displayUserName(props.data)} {displayError(props.data)}
                 </div>
             
                 <div className="row center-align">                
