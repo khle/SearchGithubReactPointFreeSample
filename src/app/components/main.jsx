@@ -14,7 +14,8 @@ var Main = React.createClass({
             
             var onSearchClick = ((event) => { 
                 
-                //Impure                
+                //Impure
+                var element = this.refs.searchText.getDOMNode()       
                 var focusElement = element => { element.value = ''; element.focus() }
                 var showResult = element => { Navigate(`/dashboard/${element.value}`) }
                                                                                                 
@@ -24,8 +25,7 @@ var Main = React.createClass({
                 var checkInput = R.compose(isInputEmpty, R.trim, getInput)
                 var handleClick = R.ifElse(checkInput, focusElement, showResult)
                       
-                //Kick things off
-                var element = this.refs.searchText.getDOMNode()                                                
+                //Kick things off                
                 handleClick(element)
                 
             }).bind(context)  
@@ -33,6 +33,7 @@ var Main = React.createClass({
             var onKeyDownHandler = ((event) => {
                 
                 //Impure
+                var element = this.refs.searchText.getDOMNode()
                 var focusElement = ((value) => { this.refs.searchText.getDOMNode().value = '' }).bind(this)
                 var showResult = value => { Navigate(`/dashboard/${value}`) }                                
                 
@@ -48,8 +49,7 @@ var Main = React.createClass({
                 var handleKeyPressed = R.ifElse(checkEnterKeyPressed, handleEnterKeyPressed, handleNonEnterKeyPressed)                
                 var handleEvent = handleKeyPressed(event)
                 
-                //Kick things off
-                var element = this.refs.searchText.getDOMNode()
+                //Kick things off                
                 handleEvent(element.value)
                 
                 //handleKeyPressed(event)(element.value)                

@@ -13,9 +13,6 @@ var Route = React.createClass({
         ,'notfound/:userName': 'notfound'
         ,'dashboard/:userName': 'dashboard'
         ,'repos/:userName': 'repos'
-        
-        //'/dashboard': 'dashboard', //not working
-        //'dashboard': 'dashboard', //correct
     },
 
     render: function() {
@@ -44,30 +41,5 @@ var Route = React.createClass({
 
 })
 
-
-
-
-
-
-/*
-var React = require('react')
-var Router = require('react-router-component')
-Main = require('./main.jsx')
-Dashboard = require('./dashboard.jsx')
-
-var Locations = Router.Locations
-var Location = Router.Location
-
-var Route = React.createClass({
-
-  render: function() {
-    return (
-      <Locations hash >
-        <Location path="/" handler={Main} />
-        <Location path="/dashboard" handler={Dashboard} />
-      </Locations>
-    )
-  }
-})*/
 
 module.exports = Route
