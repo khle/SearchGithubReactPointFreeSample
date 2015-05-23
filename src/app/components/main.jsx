@@ -41,16 +41,17 @@ var Main = React.createClass({
                 var isInputEmpty = R.eq('')
                 var checkInput = R.compose(isInputEmpty, R.trim)
                 var search = R.ifElse(checkInput, focusElement, showResult)                
-                var getKeyPressed = event => event.keyCode
+                var getKeyCodePressed = event => event.keyCode
                 var handleNonEnterKeyPressed = evt => val => { return }
                 var handleEnterKeyPressed = evt => val => { search(val) } //impure
                 var isEnterPressed = R.eq(13)
-                var checkEnterKeyPressed = R.compose(isEnterPressed, getKeyPressed)                
+                var checkEnterKeyPressed = R.compose(isEnterPressed, getKeyCodePressed)                
                 var handleKeyPressed = R.ifElse(checkEnterKeyPressed, handleEnterKeyPressed, handleNonEnterKeyPressed)                
                 var handleEvent = handleKeyPressed(event)
                 
-                //Kick things off                
-                handleEvent(element.value)
+                //Kick things off 
+                var text = element.value               
+                handleEvent(text)
                 
                 //handleKeyPressed(event)(element.value)                
                 

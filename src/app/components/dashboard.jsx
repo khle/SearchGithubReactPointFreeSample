@@ -16,19 +16,18 @@ var Dashboard = React.createClass({
     },
     componentDidMount() {                        
         var _My = new My()
-        var L = _My.MakeLenses(GHConst.githubApiFields)
-                
-        var getGithub = function(url) {
-            return new Future(function(reject, response) {               
-                $.getJSON(url)
-                .done(function(data) {
-                    response(data)                    
-                })
-                .fail(function(error) {
-                    reject(error)
-                })
+        var L = _My.MakeLenses(GHConst.githubApiFields)               
+        
+        var getGithub = url => new Future(function(reject, response) {               
+            $.getJSON(url)
+            .done(function(data) {
+                response(data)                    
             })
-        }        
+            .fail(function(error) {
+                reject(error)
+            })
+        })
+        
         
         var githubUrl = R.concat(GHConst.baseUrl, this.props.data)        
         
